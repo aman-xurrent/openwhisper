@@ -1,0 +1,15 @@
+# Xcode
+*.xcodeproj
+xcuserdata/
+DerivedData/
+build/
+*.xcresult
+
+# Vendored binaries are fetched by scripts/fetch-frameworks.sh
+Vendor/whisper.xcframework/
+Vendor/llama.xcframework/
+
+# Machine specific signing
+Config/Local.xcconfig
+
+.DS_Store

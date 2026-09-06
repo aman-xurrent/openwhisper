@@ -1,0 +1,101 @@
+name: SayType
+options:
+  bundleIdPrefix: com.amankumar
+  createIntermediateGroups: true
+  deploymentTarget:
+    macOS: "14.0"
+  xcodeVersion: "16.0"
+  generateEmptyDirectories: false
+
+configs:
+  Debug: debug
+  Release: release
+
+configFiles:
+  Debug: Config/Local.xcconfig
+  Release: Config/Local.xcconfig
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    SWIFT_STRICT_CONCURRENCY: minimal
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_HARDENED_RUNTIME: YES
+    ENABLE_APP_SANDBOX: NO
+    DEAD_CODE_STRIPPING: YES
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+targets:
+  SayType:
+    type: application
+    platform: macOS
+    sources:
+      - path: SayType
+        excludes:
+          - Info.plist
+          - SayType.entitlements
+    info:
+      path: SayType/Info.plist
+      properties:
+        CFBundleDisplayName: SayType
+        CFBundleName: SayType
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundlePackageType: APPL
+        LSMinimumSystemVersion: $(MACOSX_DEPLOYMENT_TARGET)
+        LSUIElement: true
+        LSApplicationCategoryType: public.app-category.productivity
+        NSPrincipalClass: NSApplication
+        NSHumanReadableCopyright: "Copyright © 2026 Aman Kumar"
+        NSMicrophoneUsageDescription: "SayType records your voice while the dictation hotkey is active and transcribes it on this Mac. Audio never leaves the device."
+    entitlements:
+      path: SayType/SayType.entitlements
+      properties:
+        com.apple.security.device.audio-input: true
+    dependencies:
+      - framework: Vendor/whisper.xcframework
+        embed: true
+        codeSign: true
+      - framework: Vendor/llama.xcframework
+        embed: true
+        codeSign: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.amankumar.saytype
+        PRODUCT_NAME: SayType
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks"
+        SWIFT_OBJC_BRIDGING_HEADER: SayType/Correction/LlamaShim/SayType-Bridging-Header.h
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        COMBINE_HIDPI_IMAGES: YES
+
+  SayTypeTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: SayTypeTests
+    dependencies:
+      - target: SayType
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.amankumar.saytype.tests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/SayType.app/Contents/MacOS/SayType"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+
+schemes:
+  SayType:
+    build:
+      targets:
+        SayType: all
+        SayTypeTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - SayTypeTests
+    archive:
+      config: Release

@@ -1,0 +1,6 @@
+// Copy this file to Local.xcconfig and fill in your Apple developer team id.
+// Xcode > Settings > Accounts shows the team id, or run:
+//   security find-identity -v -p codesigning
+// The value is the ten character string in the OU field of your
+// "Apple Development" certificate.
+DEVELOPMENT_TEAM = XXXXXXXXXX
