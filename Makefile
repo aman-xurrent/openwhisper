@@ -32,5 +32,8 @@ model: ## Download the models the tests use (tiny.en, Silero VAD, Qwen 3B)
 	scripts/fetch-model.sh vad
 	scripts/fetch-model.sh qwen-3b
 
+release: ## Build, sign (Developer ID), notarize, staple, and zip for distribution
+	scripts/release.sh
+
 clean:
-	rm -rf build OpenWhisper.xcodeproj
+	rm -rf build dist OpenWhisper.xcodeproj

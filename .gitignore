@@ -3,6 +3,7 @@
 xcuserdata/
 DerivedData/
 build/
+dist/
 *.xcresult
 
 # Vendored binaries are fetched by scripts/fetch-frameworks.sh
