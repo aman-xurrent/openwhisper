@@ -25,7 +25,7 @@ final class Preferences {
     }
 
     static let defaultLanguage = "en"
-    static let defaultPauseSeconds = 0.8
+    static let defaultPauseSeconds = 1.0
     static let pauseSecondsRange = 0.4...1.5
 
     private let defaults: UserDefaults

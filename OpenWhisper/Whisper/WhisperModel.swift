@@ -94,7 +94,7 @@ struct WhisperModel: Identifiable, Hashable, DownloadableAsset {
         WhisperModel(name: "large-v1", approximateSizeMB: 3_095, summary: "Original large. Superseded by v2 and v3."),
     ]
 
-    static let recommended = catalog.first { $0.name == "small.en" }!
+    static let recommended = catalog.first { $0.name == "large-v3" }!
 
     static func named(_ name: String) -> WhisperModel? {
         catalog.first { $0.name == name }
