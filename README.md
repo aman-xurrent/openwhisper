@@ -171,6 +171,11 @@ without `make model`, it just runs fewer tests.
 - **Text lands on the clipboard instead of the field.** Accessibility is not
   granted, or the focused field is a password field, or secure input is active.
   Grant Accessibility in System Settings.
+- **`make install` fails with "Permission denied" on `/Applications`.** Recent
+  macOS blocks the terminal from creating or deleting apps in `/Applications`
+  (App Management). Either grant your terminal App Management in System Settings >
+  Privacy & Security > App Management, or install into your user folder instead:
+  `mkdir -p ~/Applications && rsync -a --delete build/DerivedData/Build/Products/Release/OpenWhisper.app/ ~/Applications/OpenWhisper.app/`.
 - **The menu bar icon never appears.** Another copy may be running. Quit it from
   the menu bar, or `pkill -x OpenWhisper`, then launch again.
 - **A word is always misheard.** Add it to the Vocabulary list, or add an exact
