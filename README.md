@@ -8,7 +8,26 @@ with a small local language model through
 text field. If nothing can take text, the transcript goes to the clipboard. No
 audio and no text leave the machine.
 
-## Quick start
+## Install with one command
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/aman-xurrent/openwhisper/main/install.sh | bash
+```
+
+This installs Homebrew and XcodeGen if you do not have them, downloads the
+source, builds the app, downloads the models, installs OpenWhisper into
+`~/Applications`, and launches it. It needs two things it cannot install for you:
+
+- **Xcode**, from the App Store. Open it once after installing.
+- **An Apple ID in Xcode** for signing (Xcode > Settings > Accounts). A free
+  Apple ID works.
+
+After it finishes, macOS asks you to grant **Microphone** and **Accessibility**.
+You have to click those yourself; no app can grant them for you.
+
+## Manual quick start
+
+Prefer to run the steps yourself:
 
 ```sh
 brew install xcodegen        # one-time, if you do not have it
@@ -18,8 +37,7 @@ make setup                   # fetch frameworks, write signing config, generate 
 make run                     # build and launch OpenWhisper.app
 ```
 
-On first launch, grant Microphone and Accessibility access, then wait for the
-three models to download. The rest of this file explains each step.
+The rest of this file explains each step.
 
 ## Setup guide
 
@@ -97,11 +115,11 @@ watch the progress:
 
 | Model | Size | Job |
 |---|---|---|
-| `small.en` (whisper) | 488 MB | Speech to text |
+| `large-v3` (whisper) | 3.1 GB | Speech to text |
 | Silero VAD | 1 MB | Finds the pauses between sentences |
 | `qwen2.5-3b-instruct-q4_k_m` | 2.1 GB | Fixes casing, punctuation, and misheard words |
 
-You can dictate as soon as the whisper and VAD models are down. Correction starts
+The default whisper model is `large-v3`, the most accurate one, so the first download is large. Pick a smaller model in Settings > Model if you want a quick start. You can dictate as soon as the whisper and VAD models are down. Correction starts
 working once the Qwen model finishes.
 
 ## Using it
@@ -122,8 +140,9 @@ Everything is configurable in the menu bar item's Settings window.
   off, the language for multilingual models, noise suppression, and launch at
   login.
 - **Model.** The whisper model. All 33 files from the whisper.cpp Hugging Face
-  repo are listed, grouped by family, with a download button each. `small.en` is
-  the default. `large-v3-turbo-q5_0` is the best multilingual choice.
+  repo are listed, grouped by family, with a download button each. `large-v3` is
+  the default and the most accurate. `small.en` is a fast, light alternative, and
+  `large-v3-turbo-q5_0` is the best multilingual choice.
 - **Correction.** Turn correction on or off, pick the correction model
   (Qwen2.5 in 1.5B, 3B, or 7B), and edit two lists:
   - **Vocabulary**: names and jargon. Whisper and the correction model both see
