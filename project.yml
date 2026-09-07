@@ -1,4 +1,4 @@
-name: SayType
+name: OpenWhisper
 options:
   bundleIdPrefix: com.amankumar
   createIntermediateGroups: true
@@ -28,19 +28,19 @@ settings:
     CURRENT_PROJECT_VERSION: "1"
 
 targets:
-  SayType:
+  OpenWhisper:
     type: application
     platform: macOS
     sources:
-      - path: SayType
+      - path: OpenWhisper
         excludes:
           - Info.plist
-          - SayType.entitlements
+          - OpenWhisper.entitlements
     info:
-      path: SayType/Info.plist
+      path: OpenWhisper/Info.plist
       properties:
-        CFBundleDisplayName: SayType
-        CFBundleName: SayType
+        CFBundleDisplayName: OpenWhisper
+        CFBundleName: OpenWhisper
         CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
@@ -50,9 +50,9 @@ targets:
         LSApplicationCategoryType: public.app-category.productivity
         NSPrincipalClass: NSApplication
         NSHumanReadableCopyright: "Copyright © 2026 Aman Kumar"
-        NSMicrophoneUsageDescription: "SayType records your voice while the dictation hotkey is active and transcribes it on this Mac. Audio never leaves the device."
+        NSMicrophoneUsageDescription: "OpenWhisper records your voice while the dictation hotkey is active and transcribes it on this Mac. Audio never leaves the device."
     entitlements:
-      path: SayType/SayType.entitlements
+      path: OpenWhisper/OpenWhisper.entitlements
       properties:
         com.apple.security.device.audio-input: true
     dependencies:
@@ -64,38 +64,38 @@ targets:
         codeSign: true
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.amankumar.saytype
-        PRODUCT_NAME: SayType
+        PRODUCT_BUNDLE_IDENTIFIER: com.amankumar.openwhisper
+        PRODUCT_NAME: OpenWhisper
         LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks"
-        SWIFT_OBJC_BRIDGING_HEADER: SayType/Correction/LlamaShim/SayType-Bridging-Header.h
+        SWIFT_OBJC_BRIDGING_HEADER: OpenWhisper/Correction/LlamaShim/OpenWhisper-Bridging-Header.h
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         COMBINE_HIDPI_IMAGES: YES
 
-  SayTypeTests:
+  OpenWhisperTests:
     type: bundle.unit-test
     platform: macOS
     sources:
-      - path: SayTypeTests
+      - path: OpenWhisperTests
     dependencies:
-      - target: SayType
+      - target: OpenWhisper
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.amankumar.saytype.tests
+        PRODUCT_BUNDLE_IDENTIFIER: com.amankumar.openwhisper.tests
         GENERATE_INFOPLIST_FILE: YES
-        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/SayType.app/Contents/MacOS/SayType"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/OpenWhisper.app/Contents/MacOS/OpenWhisper"
         BUNDLE_LOADER: "$(TEST_HOST)"
 
 schemes:
-  SayType:
+  OpenWhisper:
     build:
       targets:
-        SayType: all
-        SayTypeTests: [test]
+        OpenWhisper: all
+        OpenWhisperTests: [test]
     run:
       config: Debug
     test:
       config: Debug
       targets:
-        - SayTypeTests
+        - OpenWhisperTests
     archive:
       config: Release

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Downloads a model file into the SayType models directory.
+# Downloads a model file into the OpenWhisper models directory.
 # Usage: scripts/fetch-model.sh [name]   (default: tiny.en)
 # Whisper names match https://huggingface.co/ggerganov/whisper.cpp (tiny.en, base.en, small.en, ...).
 # "vad" fetches the Silero voice activity model.
@@ -7,7 +7,7 @@
 set -euo pipefail
 
 NAME="${1:-tiny.en}"
-MODELS_DIR="$HOME/Library/Application Support/SayType/models"
+MODELS_DIR="$HOME/Library/Application Support/OpenWhisper/models"
 
 case "$NAME" in
   vad)

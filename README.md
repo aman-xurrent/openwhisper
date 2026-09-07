@@ -1,7 +1,7 @@
-# SayType
+# OpenWhisper
 
 On-device push-to-talk dictation for macOS. Press a hotkey, talk, press it again.
-SayType listens for the pauses between your sentences, transcribes each one on the
+OpenWhisper listens for the pauses between your sentences, transcribes each one on the
 device with [whisper.cpp](https://github.com/ggml-org/whisper.cpp), cleans it up
 with a small local language model through
 [llama.cpp](https://github.com/ggml-org/llama.cpp), and pastes it into the focused
@@ -12,10 +12,10 @@ audio and no text leave the machine.
 
 ```sh
 brew install xcodegen        # one-time, if you do not have it
-git clone git@github.com:aman-xurrent/saytext.git
-cd saytext
+git clone git@github.com:aman-xurrent/openwhisper.git
+cd openwhisper
 make setup                   # fetch frameworks, write signing config, generate the project
-make run                     # build and launch SayType.app
+make run                     # build and launch OpenWhisper.app
 ```
 
 On first launch, grant Microphone and Accessibility access, then wait for the
@@ -43,8 +43,8 @@ Follow these steps on a clean Mac.
 ### 2. Get the code
 
 ```sh
-git clone git@github.com:aman-xurrent/saytext.git
-cd saytext
+git clone git@github.com:aman-xurrent/openwhisper.git
+cd openwhisper
 ```
 
 ### 3. Run setup
@@ -63,7 +63,7 @@ This does three things:
    picks the first "Apple Development" team it finds in your keychain. If that is
    the wrong one, open the file and set `DEVELOPMENT_TEAM` to your ten-character
    team id. This file is git-ignored, so your signing id never gets committed.
-3. **Generates `SayType.xcodeproj`** from `project.yml`.
+3. **Generates `OpenWhisper.xcodeproj`** from `project.yml`.
 
 To sign with a specific team without editing anything by hand:
 
@@ -79,20 +79,20 @@ make run           # release build, then opens the app
 ```
 
 Or `make install` to copy the app into `/Applications`, or open
-`SayType.xcodeproj` in Xcode and press Run. SayType has no window. It lives in the
+`OpenWhisper.xcodeproj` in Xcode and press Run. OpenWhisper has no window. It lives in the
 menu bar as a microphone icon.
 
 ### 5. Grant permissions
 
-1. **Microphone.** macOS asks the first time SayType listens. Allow it.
+1. **Microphone.** macOS asks the first time OpenWhisper listens. Allow it.
 2. **Accessibility.** System Settings > Privacy & Security > Accessibility, and
-   turn on SayType. This lets it find the focused text field and paste for you.
-   Without it, SayType still works but only copies to the clipboard.
+   turn on OpenWhisper. This lets it find the focused text field and paste for you.
+   Without it, OpenWhisper still works but only copies to the clipboard.
 
 ### 6. Wait for the models
 
-On first launch SayType downloads three models into
-`~/Library/Application Support/SayType/models/` and opens Settings so you can
+On first launch OpenWhisper downloads three models into
+`~/Library/Application Support/OpenWhisper/models/` and opens Settings so you can
 watch the progress:
 
 | Model | Size | Job |
@@ -140,7 +140,7 @@ Everything is configurable in the menu bar item's Settings window.
 | `make setup` | Fetch frameworks, write signing config, generate the project. Run once after cloning. |
 | `make run` | Release build, then launch the app. |
 | `make install` | Release build, synced into `/Applications`. |
-| `make generate` | Regenerate `SayType.xcodeproj` from `project.yml`. |
+| `make generate` | Regenerate `OpenWhisper.xcodeproj` from `project.yml`. |
 | `make model` | Download the models the tests need (tiny.en, Silero, Qwen 3B). |
 | `make test` | Run the unit tests. |
 | `make clean` | Remove the build output and the generated project. |
@@ -166,13 +166,13 @@ without `make model`, it just runs fewer tests.
 ## Troubleshooting
 
 - **"No microphone signal".** The mic returned silence. Check System Settings >
-  Privacy & Security > Microphone and confirm SayType is on. If you rebuilt with a
+  Privacy & Security > Microphone and confirm OpenWhisper is on. If you rebuilt with a
   different signing team, macOS may treat it as a new app, so grant it again.
 - **Text lands on the clipboard instead of the field.** Accessibility is not
   granted, or the focused field is a password field, or secure input is active.
   Grant Accessibility in System Settings.
 - **The menu bar icon never appears.** Another copy may be running. Quit it from
-  the menu bar, or `pkill -x SayType`, then launch again.
+  the menu bar, or `pkill -x OpenWhisper`, then launch again.
 - **A word is always misheard.** Add it to the Vocabulary list, or add an exact
   `wrong = right` line to "Always replace" in Settings > Correction.
 

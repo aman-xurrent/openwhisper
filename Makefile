@@ -1,6 +1,6 @@
-SCHEME        := SayType
+SCHEME        := OpenWhisper
 DERIVED_DATA  := build/DerivedData
-APP           := $(DERIVED_DATA)/Build/Products/Release/SayType.app
+APP           := $(DERIVED_DATA)/Build/Products/Release/OpenWhisper.app
 INSTALL_DIR   := /Applications
 
 .PHONY: setup generate build run test install clean model
@@ -10,7 +10,7 @@ setup: ## Fetch the whisper and llama xcframeworks, write signing config, genera
 	scripts/write-local-xcconfig.sh
 	$(MAKE) generate
 
-generate: ## Regenerate SayType.xcodeproj from project.yml
+generate: ## Regenerate OpenWhisper.xcodeproj from project.yml
 	xcodegen generate
 
 build: generate ## Release build into build/DerivedData
@@ -23,9 +23,9 @@ test: generate ## Run unit tests (needs the tiny.en model, see `make model`)
 	xcodebuild -scheme $(SCHEME) -destination 'platform=macOS' -derivedDataPath $(DERIVED_DATA) test | tail -n 40
 
 install: build ## Sync the release build into /Applications (rsync, so App Management never has to delete the bundle)
-	mkdir -p "$(INSTALL_DIR)/SayType.app"
-	rsync -a --delete "$(APP)/" "$(INSTALL_DIR)/SayType.app/"
-	@echo "Installed $(INSTALL_DIR)/SayType.app"
+	mkdir -p "$(INSTALL_DIR)/OpenWhisper.app"
+	rsync -a --delete "$(APP)/" "$(INSTALL_DIR)/OpenWhisper.app/"
+	@echo "Installed $(INSTALL_DIR)/OpenWhisper.app"
 
 model: ## Download the models the tests use (tiny.en, Silero VAD, Qwen 3B)
 	scripts/fetch-model.sh tiny.en
@@ -33,4 +33,4 @@ model: ## Download the models the tests use (tiny.en, Silero VAD, Qwen 3B)
 	scripts/fetch-model.sh qwen-3b
 
 clean:
-	rm -rf build SayType.xcodeproj
+	rm -rf build OpenWhisper.xcodeproj
