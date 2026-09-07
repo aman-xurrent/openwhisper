@@ -22,8 +22,9 @@ source, builds the app, downloads the models, installs OpenWhisper into
 - **An Apple ID in Xcode** for signing (Xcode > Settings > Accounts). A free
   Apple ID works.
 
-After it finishes, macOS asks you to grant **Microphone** and **Accessibility**.
-You have to click those yourself; no app can grant them for you.
+On first launch OpenWhisper asks for **Microphone** and **Accessibility**.
+Approve both. macOS requires you to approve them yourself; the app only shows
+the prompts.
 
 ## Manual quick start
 

@@ -89,10 +89,9 @@ open "$APP_DIR/OpenWhisper.app"
 
 printf "\n\033[1;32mDone.\033[0m OpenWhisper is running. Look for the microphone icon in the menu bar.\n\n"
 cat <<'DONE'
-Two one-time macOS permissions (macOS requires you to click these):
-  1. Microphone     allow it when the prompt appears.
-  2. Accessibility  System Settings > Privacy & Security > Accessibility,
-                    then turn on OpenWhisper.
+OpenWhisper asks for two one-time permissions on first launch. Approve both:
+  1. Microphone     click Allow when the prompt appears.
+  2. Accessibility  the prompt opens System Settings; turn on OpenWhisper there.
 
 To dictate: press Control-Option-Space, talk, press it again.
 DONE

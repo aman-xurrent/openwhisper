@@ -151,13 +151,18 @@ final class AppCoordinator {
     }
 
     private func runFirstLaunchChecks() async {
+        // Ask for both permissions up front so the user can approve them now,
+        // instead of hunting through System Settings later.
         if Permissions.microphoneStatus == .notDetermined {
             _ = await Permissions.requestMicrophone()
         }
+        if !Permissions.isAccessibilityTrusted {
+            Permissions.promptForAccessibility()
+        }
+
         if !modelStore.isDownloaded(VADModel.silero) {
             modelStore.download(VADModel.silero)
         }
-        let needsAccessibility = !Permissions.isAccessibilityTrusted
         let needsWhisper = !modelStore.isDownloaded(preferences.selectedModel)
         let needsCorrection = preferences.correctionEnabled && !modelStore.isDownloaded(preferences.correctionModel)
         if needsWhisper {
@@ -168,11 +173,8 @@ final class AppCoordinator {
         }
         if needsWhisper || needsCorrection {
             openSettings(tab: needsWhisper ? .model : .correction)
-        } else if needsAccessibility {
+        } else if !Permissions.isAccessibilityTrusted {
             openSettings(tab: .permissions)
-        }
-        if needsAccessibility {
-            Permissions.promptForAccessibility()
         }
     }
 
